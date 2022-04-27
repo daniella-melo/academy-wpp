@@ -1,3 +1,4 @@
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Chat{
@@ -25,7 +26,8 @@ public class Chat{
 
     public void print(){
         for (Message message : messages) {
-            System.out.println("formatar data aqui " + message.getSenderUser().getName() + ": " + message.getContent());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            System.out.println( message.getDate().format(formatter) + " " + message.getSenderUser().getName() + ": " + message.getContent());
         }
     }
 }
