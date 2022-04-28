@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class User{
+public class User implements Comparable<User>{
     
     private String name;
     private ArrayList<Chat>  chats;
@@ -52,5 +52,12 @@ public class User{
     public ArrayList<Chat>  getChats(){
         return this.chats;
     }
+
+    @Override
+    public int compareTo(User u) {
+        if(this.equals(u)) return 1;
+        return 0;
+    }
+
  
 }

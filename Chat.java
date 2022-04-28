@@ -18,8 +18,8 @@ public class Chat{
     
     public boolean exists(User user1, User user2){
         for (Message message : messages) {
-            if((message.getReceiverUser() == user1 || message.getReceiverUser() == user1) && 
-            (message.getSenderUser() == user2 || message.getSenderUser() == user2)) return true;
+            if((message.getReceiverUser() == user1 || message.getReceiverUser() == user2) && 
+            (message.getSenderUser() == user1 || message.getSenderUser() == user2)) return true;
         }
         return false;
     }
@@ -29,5 +29,18 @@ public class Chat{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             System.out.println( message.getDate().format(formatter) + " " + message.getSenderUser().getName() + ": " + message.getContent());
         }
+    }
+
+    public ArrayList<User> listParticipants(){
+        ArrayList<User>  users = new ArrayList<>();
+        users.add(this.getMessages().get(0).getReceiverUser());
+        users.add(this.getMessages().get(0).getSenderUser());
+        Collections.sort(users);
+        return users;
+    }
+
+    public int totalNumberOfParticipants(){
+        ArrayList<User>  users = listParticipants();
+        return users.size();
     }
 }

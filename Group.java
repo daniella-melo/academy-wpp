@@ -1,15 +1,16 @@
 import java.util.*;
 
-public class Group extends Chat{
+public class Group extends Chat{ //mudar para composição ao invés de herança
 
     private ArrayList<User> users;
-    private User admUser;
+    private ArrayList<User> admUsers;
     private String groupName;
 
     public Group(String groupName, User admUser){
         this.users = new ArrayList<User>();
         this.groupName = groupName;
-        this.admUser = admUser;
+        this.admUsers = new ArrayList<User>();
+        this.admUsers.add(admUser);
     }
 
     public boolean userExists(User user){
@@ -35,12 +36,9 @@ public class Group extends Chat{
         return this.groupName;
     }
 
-    public void setAdmUser(User admUser){
-        this.admUser = admUser;
-    }
 
-    public User getAdmUser(){
-        return this.admUser;
+    public ArrayList<User> getAdmUsers(){
+        return this.admUsers;
     }
 
 }
