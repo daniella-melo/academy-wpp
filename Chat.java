@@ -32,6 +32,7 @@ public class Chat{
     }
 
     public ArrayList<User> listParticipants(){
+        //TODO: rever onde colocar esse metodo/relacao de heranca entre chat e grupo
         ArrayList<User>  users = new ArrayList<>();
         users.add(this.getMessages().get(0).getReceiverUser());
         users.add(this.getMessages().get(0).getSenderUser());

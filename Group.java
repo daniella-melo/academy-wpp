@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Group extends Chat{ //mudar para composição ao invés de herança
+public class Group extends Chat{ //mudar para composição ao invés de herança, talvez
 
     private ArrayList<User> users;
     private ArrayList<User> admUsers;
