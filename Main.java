@@ -6,8 +6,8 @@ public class Main{
         User izabella = new User("izabella");
         User daniella = new User("daniella");
  
-        izabella.sendMessage(daniella, "Oi Dani", MessageEnum.TEXT);
-        daniella.sendMessage(izabella, "Oi Iza", MessageEnum.TEXT);
+        izabella.sendMessageToSingleUser(daniella, "Oi Dani", MessageEnum.TEXT);
+        daniella.sendMessageToSingleUser(izabella, "Oi Iza", MessageEnum.TEXT);
        
         ArrayList<Chat> chats = new ArrayList<>();
         chats =  daniella.getChats();
@@ -27,6 +27,22 @@ public class Main{
            }
           
            System.out.println("\n Número de Participantes deste chat: " + chat.totalNumberOfParticipants());
+        }
+
+        //TESTANDO GRUPOS
+        System.out.println("\n---------------------------------");
+        User nicole  = new User("nicole");
+
+        Group espiasDemais = new Group("espiasDemais", daniella);
+        daniella.sendMessageToGroup(espiasDemais, "Criei o grupo", MessageEnum.TEXT);
+        espiasDemais.addUserToGroup(nicole, daniella); //vai conseguir adicionar
+        espiasDemais.addUserToGroup(nicole, daniella); //não irá conseguir adicionar
+
+        nicole.sendMessageToGroup(espiasDemais, "Ola grupo", MessageEnum.TEXT);
+
+        System.out.println("\n Lista de Participantes deste Grupo: (Só deve ter Nicole e Daniella) ");
+        for (User user :  espiasDemais.listParticipants()) {
+             System.out.println(user.getName());
         }
     }
 }

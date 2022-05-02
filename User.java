@@ -4,6 +4,7 @@ public class User implements Comparable<User>{
     
     private String name;
     private ArrayList<Chat>  chats;
+    private ArrayList<Group> groups;
 
     public User(String nome){
         this.name = nome;
@@ -14,7 +15,11 @@ public class User implements Comparable<User>{
         this.chats.add(chat);
     }
 
-    public void sendMessage(User to, String content, MessageEnum type){
+    public void addGroup(Group group){
+        this.chats.add(group);
+    }
+
+    public void sendMessageToSingleUser(User to, String content, MessageEnum type){
         Message message = new Message(content, to, this, type);
         this.registerMessageToSingleUser(message, to);
         to.receiveMessage(this, content, type);
@@ -45,9 +50,13 @@ public class User implements Comparable<User>{
         newChat.addMultipleUsers(listUsers);
         this.addChat(newChat);
     }
-    
-    public void registerMessageToGroup(Message message, String groupName){
 
+    public void sendMessageToGroup(Group to, String content, MessageEnum type){
+        if(to.userExists(this, to.getAllParticipants())){
+            //pode enviar mensagem
+            Message message = new Message(content, to, this, type);
+            to.registerMessageToGroup(message);
+        }
     }
 
     public void setName(String name){
@@ -58,8 +67,12 @@ public class User implements Comparable<User>{
         return this.name;
     }
 
-    public ArrayList<Chat>  getChats(){
+    public ArrayList<Chat> getChats(){
         return this.chats;
+    }
+
+    public ArrayList<Group> getGroups(){
+        return this.groups;
     }
 
     @Override

@@ -11,6 +11,36 @@ public class Group extends Chat{
         this.admUsers.add(admUser);
     }
 
+    public void registerMessageToGroup(Message message){
+        this.addMessage(message);
+    }
+
+    public void addAnotherAdmUser(User newAdm, User askedBy){
+        for (User user : admUsers) {
+            if (isAdm(askedBy)){
+                if(this.userExists(newAdm, this.getAllParticipants())){
+                    this.admUsers.add(newAdm);
+                }
+            }
+        }
+    }
+
+    public void addUserToGroup(User newUser, User askedBy){
+        for (User user : admUsers) {
+            if (isAdm(askedBy)){
+                this.addUser(newUser);
+                user.addGroup(this);
+            }
+        }
+    }
+
+    public boolean isAdm(User user){
+        for (User u : admUsers) {
+            if (u.getName() == user.getName()) return true;
+        }
+        return false;
+    }
+
     public void setGroupName(String groupName){
         this.groupName = groupName;
     }
@@ -19,9 +49,7 @@ public class Group extends Chat{
         return this.groupName;
     }
 
-
     public ArrayList<User> getAdmUsers(){
         return this.admUsers;
     }
-
 }

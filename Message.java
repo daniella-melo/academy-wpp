@@ -6,6 +6,7 @@ public class Message{
     private String content;
     private LocalDateTime date;
     private User receiverUser;
+    private Group receiverGroup;
     private User senderUser;
     private MessageEnum type;
 
@@ -15,6 +16,14 @@ public class Message{
         this.receiverUser = receiverUser;
         this.senderUser = senderUser;
     }
+
+    public Message(String content, Group receiverGroup, User senderUser, MessageEnum type){
+        this.content = content;
+        this.date = LocalDateTime.now();
+        this.receiverGroup = receiverGroup;
+        this.senderUser = senderUser;
+    }
+
     public void setContent(String content){
         this.content = content;
     }
@@ -31,6 +40,9 @@ public class Message{
         this.receiverUser = user;
     }
 
+    public void setReceiverGroup(Group group){
+        this.receiverGroup = group;
+    }
 
     public void setType(MessageEnum type){
         this.type = type;
@@ -54,5 +66,9 @@ public class Message{
 
     public User getSenderUser(){
         return this.senderUser;
+    }
+
+    public Group getReceiverGroup(){
+        return this.receiverGroup;
     }
 }
