@@ -32,11 +32,12 @@ public class Main{
         //TESTANDO GRUPOS
         System.out.println("\n---------------------------------");
         User nicole  = new User("nicole");
+        User kayla  = new User("kayla");
 
         Group espiasDemais = new Group("espiasDemais", daniella);
         daniella.sendMessageToGroup(espiasDemais, "Criei o grupo", MessageEnum.TEXT);
         espiasDemais.addUserToGroup(nicole, daniella); //vai conseguir adicionar
-        espiasDemais.addUserToGroup(nicole, daniella); //não irá conseguir adicionar
+        espiasDemais.addUserToGroup(kayla, izabella); //não irá conseguir adicionar
 
         nicole.sendMessageToGroup(espiasDemais, "Ola grupo", MessageEnum.TEXT);
 

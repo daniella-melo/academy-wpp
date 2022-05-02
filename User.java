@@ -27,6 +27,7 @@ public class User implements Comparable<User>{
 
     public void receiveMessage(User from, String content, MessageEnum type){
         Message message = new Message(content, this, from, type);
+
         this.registerMessageToSingleUser(message, from);
     }
 
@@ -80,6 +81,4 @@ public class User implements Comparable<User>{
         if(this.equals(u)) return 1;
         return 0;
     }
-
- 
 }

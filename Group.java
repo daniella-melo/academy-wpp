@@ -9,27 +9,30 @@ public class Group extends Chat{
         this.groupName = groupName;
         this.admUsers = new ArrayList<User>();
         this.admUsers.add(admUser);
+        this.addUser(admUser);
     }
 
     public void registerMessageToGroup(Message message){
         this.addMessage(message);
     }
 
-    public void addAnotherAdmUser(User newAdm, User askedBy){
-        for (User user : admUsers) {
-            if (isAdm(askedBy)){
+    public void addAnotherAdmUser(User newAdm, User insertBy){
+            if (isAdm(insertBy)){
                 if(this.userExists(newAdm, this.getAllParticipants())){
-                    this.admUsers.add(newAdm);
+                    if(!this.userExists(newAdm, this.getAdmUsers())){
+                     this.admUsers.add(newAdm);
+                    }
                 }
             }
-        }
     }
 
-    public void addUserToGroup(User newUser, User askedBy){
+    public void addUserToGroup(User newUser, User insertBy){
         for (User user : admUsers) {
-            if (isAdm(askedBy)){
-                this.addUser(newUser);
-                user.addGroup(this);
+            if (isAdm(insertBy)){
+                if(!this.userExists(newUser, this.getAllParticipants())){
+                    this.addUser(newUser);
+                    newUser.addGroup(this);
+                }
             }
         }
     }
