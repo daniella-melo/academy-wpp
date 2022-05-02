@@ -21,13 +21,12 @@ public class Main{
         System.out.println("\n--Chats de " + daniella.getName() + "--");
         for (Chat chat : chats) {
            chat.print();
-           System.out.println("Lista de Participantes deste chat: ");
+           System.out.println("\n Lista de Participantes deste chat: ");
            for (User user : chat.listParticipants()) {
                 System.out.println(user.getName());
            }
-           System.out.println("Número de Participantes deste chat: " + chat.totalNumberOfParticipants());
+          
+           System.out.println("\n Número de Participantes deste chat: " + chat.totalNumberOfParticipants());
         }
-
-        
     }
 }

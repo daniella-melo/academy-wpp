@@ -3,9 +3,11 @@ import java.util.*;
 
 public class Chat{
     private ArrayList<Message> messages;
-    
+    private ArrayList<User> users;
+
     public Chat(){
         this.messages = new ArrayList<Message>();
+        this.users = new ArrayList<User>();
     }
 
     public ArrayList<Message> getMessages(){
@@ -16,12 +18,12 @@ public class Chat{
         this.messages.add(message);
     }
     
-    public boolean exists(User user1, User user2){
-        for (Message message : messages) {
-            if((message.getReceiverUser() == user1 || message.getReceiverUser() == user2) && 
-            (message.getSenderUser() == user1 || message.getSenderUser() == user2)) return true;
+    public int existsBetween(ArrayList<User> listUsers){
+        int validUsers = 0;
+        for (User user : listUsers) {
+            if (userExists(user, listUsers)) validUsers++;
         }
-        return false;
+        return validUsers;
     }
 
     public void print(){
@@ -32,16 +34,46 @@ public class Chat{
     }
 
     public ArrayList<User> listParticipants(){
-        //TODO: rever onde colocar esse metodo/relacao de heranca entre chat e grupo
-        ArrayList<User>  users = new ArrayList<>();
-        users.add(this.getMessages().get(0).getReceiverUser());
-        users.add(this.getMessages().get(0).getSenderUser());
-        Collections.sort(users);
-        return users;
+        ArrayList<User> allUsers = getAllParticipants();
+        Collections.sort(allUsers);
+        return allUsers;
+    }
+
+    public ArrayList<User> getAllParticipants(){
+        ArrayList<User> auxUsers = new ArrayList<>();
+        for (Message message : messages) {
+            User receiver = message.getReceiverUser();
+            User sender = message.getSenderUser();
+
+            if(userExists(receiver, this.users) && !userExists(receiver, auxUsers)) auxUsers.add(receiver);
+            if(userExists(sender, this.users) && !userExists(sender, auxUsers)) auxUsers.add(sender);
+        }
+        return auxUsers;
     }
 
     public int totalNumberOfParticipants(){
-        ArrayList<User>  users = listParticipants();
-        return users.size();
+        return this.users.size();
     }
+
+    public boolean userExists(User user, ArrayList<User> listToSearch){
+        for (User u : listToSearch) {
+            if (u.getName() == user.getName()) return true;
+        }
+        return false;
+    }
+
+    public ArrayList<User> getUsers(){
+        return this.users;
+    }
+
+    public void addUser(User user){
+        this.users.add(user);
+    }
+
+    public void addMultipleUsers(ArrayList<User> users){
+        for (User u : users) {
+            this.users.add(u);
+        }
+    }
+
 }

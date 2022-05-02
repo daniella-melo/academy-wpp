@@ -16,20 +16,24 @@ public class User implements Comparable<User>{
 
     public void sendMessage(User to, String content, MessageEnum type){
         Message message = new Message(content, to, this, type);
-        this.registerMessage(message, to);
+        this.registerMessageToSingleUser(message, to);
         to.receiveMessage(this, content, type);
     }
 
     public void receiveMessage(User from, String content, MessageEnum type){
         Message message = new Message(content, this, from, type);
-        this.registerMessage(message, from);
+        this.registerMessageToSingleUser(message, from);
     }
 
-    public void registerMessage(Message message, User foreign){
+    public void registerMessageToSingleUser(Message message, User foreign){
+        ArrayList<User> listUsers = new ArrayList<>();
+        listUsers.add(this);
+        listUsers.add(foreign);
+
         if(!this.getChats().isEmpty()){
             //verificar se ja existe um chat entre os dois usuarios
             for(int i = 0; i < chats.size(); i++){
-                if(chats.get(i).exists(this, foreign)) {
+                if(chats.get(i).existsBetween(listUsers) == listUsers.size()) {
                     //adiciona a mensagem no chat
                     chats.get(i).addMessage(message);
                     return;
@@ -38,7 +42,12 @@ public class User implements Comparable<User>{
         }
         Chat newChat = new Chat();
         newChat.addMessage(message);
+        newChat.addMultipleUsers(listUsers);
         this.addChat(newChat);
+    }
+    
+    public void registerMessageToGroup(Message message, String groupName){
+
     }
 
     public void setName(String name){

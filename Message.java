@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 
 public class Message{
 
+  
     private String content;
     private LocalDateTime date;
     private User receiverUser;
@@ -14,7 +15,6 @@ public class Message{
         this.receiverUser = receiverUser;
         this.senderUser = senderUser;
     }
-
     public void setContent(String content){
         this.content = content;
     }
@@ -23,15 +23,16 @@ public class Message{
         this.date = date;
     }
 
-    public void setReceiverUser(User user){
-        this.receiverUser = user;
-    }
-
     public void setSenderUser(User user){
         this.senderUser = user;
     }
 
-    public void setSenderUser(MessageEnum type){
+    public void setReceiverUser(User user){
+        this.receiverUser = user;
+    }
+
+
+    public void setType(MessageEnum type){
         this.type = type;
     }
 
@@ -43,15 +44,15 @@ public class Message{
         return this.date;
     }
 
+    public MessageEnum getType(){
+        return this.type;
+    }
+
     public User getReceiverUser(){
         return this.receiverUser;
     }
 
     public User getSenderUser(){
         return this.senderUser;
-    }
-
-    public MessageEnum getType(){
-        return this.type;
     }
 }
