@@ -3,15 +3,15 @@ import java.util.*;
 public class User implements Comparable<User>{
     
     private String name;
-    private ArrayList<Chat>  chats;
+    private ArrayList<SingleChat>  chats;
     private ArrayList<Group> groups;
 
     public User(String nome){
         this.name = nome;
-        this.chats = new ArrayList<Chat>();
+        this.chats = new ArrayList<SingleChat>();
     }
 
-    public void addChat(Chat chat){
+    public void addChat(SingleChat chat){
         this.chats.add(chat);
     }
 
@@ -46,14 +46,14 @@ public class User implements Comparable<User>{
                 } 
             }
         }
-        Chat newChat = new Chat();
+        SingleChat newChat = new SingleChat();
         newChat.addMessage(message);
         newChat.addMultipleUsers(listUsers);
         this.addChat(newChat);
     }
 
     public void sendMessageToGroup(Group to, String content, MessageEnum type){
-        if(to.userExists(this, to.getAllParticipants())){
+        if(to.userExists(this, to.getUsers())){
             //pode enviar mensagem
             Message message = new Message(content, to, this, type);
             to.registerMessageToGroup(message);
@@ -68,7 +68,7 @@ public class User implements Comparable<User>{
         return this.name;
     }
 
-    public ArrayList<Chat> getChats(){
+    public ArrayList<SingleChat> getChats(){
         return this.chats;
     }
 

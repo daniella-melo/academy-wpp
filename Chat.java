@@ -1,7 +1,8 @@
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
 
-public class Chat{
+public abstract class Chat {
+
     private ArrayList<Message> messages;
     private ArrayList<User> users;
 
@@ -33,23 +34,7 @@ public class Chat{
         }
     }
 
-    public ArrayList<User> listParticipants(){
-        ArrayList<User> allUsers = getAllParticipants();
-        Collections.sort(allUsers);
-        return allUsers;
-    }
-
-    public ArrayList<User> getAllParticipants(){
-        ArrayList<User> auxUsers = new ArrayList<>();
-        for (Message message : messages) {
-            User receiver = message.getReceiverUser();
-            User sender = message.getSenderUser();
-
-            if(userExists(receiver, this.users) && !userExists(receiver, auxUsers)) auxUsers.add(receiver);
-            if(userExists(sender, this.users) && !userExists(sender, auxUsers)) auxUsers.add(sender);
-        }
-        return auxUsers;
-    }
+    public abstract ArrayList<User> listParticipants();
 
     public int totalNumberOfParticipants(){
         return this.users.size();
@@ -57,7 +42,7 @@ public class Chat{
 
     public boolean userExists(User user, ArrayList<User> listToSearch){
         for (User u : listToSearch) {
-            if (u.getName() == user.getName()) return true;
+            if (u == user) return true;
         }
         return false;
     }

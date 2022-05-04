@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Group extends Chat{ 
+public class Group extends SingleChat{ 
 
     private ArrayList<User> admUsers;
     private String groupName;
@@ -24,17 +24,25 @@ public class Group extends Chat{
                     }
                 }
             }
+            else{
+                System.out.println("Usuário " + insertBy.getName() + " não pode promover a administrador, pois não é administrador");
+            }
     }
 
     public void addUserToGroup(User newUser, User insertBy){
-        for (User user : admUsers) {
             if (isAdm(insertBy)){
                 if(!this.userExists(newUser, this.getAllParticipants())){
                     this.addUser(newUser);
                     newUser.addGroup(this);
                 }
             }
-        }
+            else{
+                System.out.println("Usuário " + insertBy.getName() + " não pode adicionar participantes ao grupo, pois não é administrador");
+            }
+    }
+
+    public ArrayList<User> getAllParticipants(){
+       return super.getUsers();
     }
 
     public boolean isAdm(User user){

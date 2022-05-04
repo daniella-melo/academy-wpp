@@ -9,17 +9,17 @@ public class Main{
         izabella.sendMessageToSingleUser(daniella, "Oi Dani", MessageEnum.TEXT);
         daniella.sendMessageToSingleUser(izabella, "Oi Iza", MessageEnum.TEXT);
        
-        ArrayList<Chat> chats = new ArrayList<>();
+        ArrayList<SingleChat> chats = new ArrayList<>();
         chats =  daniella.getChats();
 
         System.out.println("\n--Chats de " + izabella.getName() + "--");
         chats =  izabella.getChats();
-        for (Chat chat : chats) {
+        for (SingleChat chat : chats) {
             chat.print();
         }
 
         System.out.println("\n--Chats de " + daniella.getName() + "--");
-        for (Chat chat : chats) {
+        for (SingleChat chat : chats) {
            chat.print();
            System.out.println("\n Lista de Participantes deste chat: ");
            for (User user : chat.listParticipants()) {
@@ -30,7 +30,7 @@ public class Main{
         }
 
         //TESTANDO GRUPOS
-        System.out.println("\n---------------------------------");
+        System.out.println("\n--------------------------------");
         User nicole  = new User("nicole");
         User kayla  = new User("kayla");
 
@@ -41,9 +41,14 @@ public class Main{
 
         nicole.sendMessageToGroup(espiasDemais, "Ola grupo", MessageEnum.TEXT);
 
+        System.out.println("\n--Chats do grupo " + espiasDemais.getGroupName() + "--");
+        espiasDemais.print();
+
         System.out.println("\n Lista de Participantes deste Grupo: (Só deve ter Nicole e Daniella) ");
         for (User user :  espiasDemais.listParticipants()) {
              System.out.println(user.getName());
         }
+
+        System.out.println("\n Número de Participantes deste chat: " + espiasDemais.totalNumberOfParticipants());
     }
 }
