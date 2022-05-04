@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Group extends SingleChat{ 
+public class Group extends Chat{ 
 
     private ArrayList<User> admUsers;
     private String groupName;
@@ -17,8 +17,9 @@ public class Group extends SingleChat{
     }
 
     public void addAnotherAdmUser(User newAdm, User insertBy){
+        if(userExists(insertBy, super.getUsers())){
             if (isAdm(insertBy)){
-                if(this.userExists(newAdm, this.getAllParticipants())){
+                if(this.userExists(newAdm, super.getUsers())){
                     if(!this.userExists(newAdm, this.getAdmUsers())){
                      this.admUsers.add(newAdm);
                     }
@@ -27,11 +28,16 @@ public class Group extends SingleChat{
             else{
                 System.out.println("Usuário " + insertBy.getName() + " não pode promover a administrador, pois não é administrador");
             }
+        }
+        else{
+            System.out.println("Usuário " + insertBy.getName() + " não é integrante do grupo " + this.getGroupName());
+        }
     }
 
     public void addUserToGroup(User newUser, User insertBy){
+        if(userExists(insertBy, super.getUsers())){
             if (isAdm(insertBy)){
-                if(!this.userExists(newUser, this.getAllParticipants())){
+                if(!this.userExists(newUser,super.getUsers())){
                     this.addUser(newUser);
                     newUser.addGroup(this);
                 }
@@ -39,10 +45,11 @@ public class Group extends SingleChat{
             else{
                 System.out.println("Usuário " + insertBy.getName() + " não pode adicionar participantes ao grupo, pois não é administrador");
             }
-    }
-
-    public ArrayList<User> getAllParticipants(){
-       return super.getUsers();
+        }
+        else{
+            //TODO: tratamento de exceções
+            System.out.println("Usuário " + insertBy.getName() + " não é integrante do grupo " + this.getGroupName());
+        }
     }
 
     public boolean isAdm(User user){

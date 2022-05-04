@@ -1,7 +1,8 @@
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 
-public abstract class Chat {
+public class Chat {
 
     private ArrayList<Message> messages;
     private ArrayList<User> users;
@@ -34,7 +35,11 @@ public abstract class Chat {
         }
     }
 
-    public abstract ArrayList<User> listParticipants();
+    public ArrayList<User> listParticipants(){
+        ArrayList<User> allUsers =  this.getUsers();
+        Collections.sort(allUsers);
+        return allUsers;
+    }
 
     public int totalNumberOfParticipants(){
         return this.users.size();
