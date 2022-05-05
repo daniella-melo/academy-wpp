@@ -77,8 +77,10 @@ public class User implements Comparable<User>{
     }
 
     @Override
-    public int compareTo(User u) {
-        if(this.equals(u)) return 1;
-        return 0;
+    public int compareTo(User u){
+        int compareInt = this.getName().compareTo(u.getName());
+        if(compareInt < 0) return -1; //this vem antes
+        if(compareInt > 0) return 1; //u vem antes
+        return 0; //iguais
     }
 }

@@ -36,9 +36,8 @@ public class Chat {
     }
 
     public ArrayList<User> listParticipants(){
-        ArrayList<User> allUsers =  this.getUsers();
-        Collections.sort(allUsers);
-        return allUsers;
+        Collections.sort(this.getUsers());
+        return this.getUsers();
     }
 
     public int totalNumberOfParticipants(){
