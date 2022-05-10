@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class Group extends Chat{ 
@@ -10,6 +12,7 @@ public class Group extends Chat{
         this.admUsers = new ArrayList<User>();
         this.admUsers.add(admUser);
         this.addUser(admUser);
+        admUser.addGroup(this);
     }
 
     public void registerMessageToGroup(Message message){

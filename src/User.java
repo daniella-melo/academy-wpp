@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class User implements Comparable<User>{
@@ -9,6 +11,7 @@ public class User implements Comparable<User>{
     public User(String nome){
         this.name = nome;
         this.chats = new ArrayList<Chat>();
+        this.groups = new ArrayList<Group>();
     }
 
     public void addChat(Chat chat){
@@ -16,7 +19,7 @@ public class User implements Comparable<User>{
     }
 
     public void addGroup(Group group){
-        this.chats.add(group);
+        this.groups.add(group);
     }
 
     public void sendMessageToSingleUser(User to, String content, MessageEnum type){
@@ -82,5 +85,23 @@ public class User implements Comparable<User>{
         if(compareInt < 0) return -1; //this vem antes
         if(compareInt > 0) return 1; //u vem antes
         return 0; //iguais
+    }
+
+    public void listAllChatsAndGroups(){
+        System.out.println("\nChats que o usuário " + this.getName() + " participa:" );
+        for (Chat chat : chats) {
+            System.out.println("Chat com: " + getOtherUser(chat).getName());
+        }
+        System.out.println("\nGrupos que o usuário " + this.getName() + " participa:" );
+        for (Group group : groups) {
+            System.out.println("Nome do grupo: " + group.getGroupName());
+        }
+    }
+
+    private User getOtherUser(Chat chat){
+        for (User user : chat.getUsers()) {
+            if(user.getName() != this.getName()) return user;
+        }
+        return null;
     }
 }

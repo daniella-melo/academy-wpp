@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 
 public class Main{
@@ -57,5 +59,10 @@ public class Main{
         }
 
         System.out.println("\n Número de Participantes deste chat: " + espiasDemais.totalNumberOfParticipants());
+
+
+        //Extras
+        daniella.listAllChatsAndGroups();
+
     }
 }
