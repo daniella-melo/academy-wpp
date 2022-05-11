@@ -53,6 +53,13 @@ public class Chat {
         return false;
     }
 
+    public boolean userExistsByUserName(String user, ArrayList<User> listToSearch){
+        for (User u : listToSearch) {
+            if (u.getName() == user) return true;
+        }
+        return false;
+    }
+
     public ArrayList<User> getUsers(){
         return this.users;
     }

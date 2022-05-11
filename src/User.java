@@ -7,11 +7,13 @@ public class User implements Comparable<User>{
     private String name;
     private ArrayList<Chat>  chats;
     private ArrayList<Group> groups;
+    private ArrayList<Chat> archivedChats;
 
     public User(String nome){
         this.name = nome;
         this.chats = new ArrayList<Chat>();
         this.groups = new ArrayList<Group>();
+        this.archivedChats = new ArrayList<Chat>();
     }
 
     public void addChat(Chat chat){
@@ -20,6 +22,10 @@ public class User implements Comparable<User>{
 
     public void addGroup(Group group){
         this.groups.add(group);
+    }
+
+    public void addArchivedChat(Chat chat){
+        this.archivedChats.add(chat);
     }
 
     public void sendMessageToSingleUser(User to, String content, MessageEnum type){
@@ -79,6 +85,10 @@ public class User implements Comparable<User>{
         return this.groups;
     }
 
+    public ArrayList<Chat> getArchivedChats(){
+        return this.archivedChats;
+    }
+
     @Override
     public int compareTo(User u){
         int compareInt = this.getName().compareTo(u.getName());
@@ -104,4 +114,69 @@ public class User implements Comparable<User>{
         }
         return null;
     }
+
+    public Chat getSpecificChat(User user){
+        for (Chat chat : chats) {
+            for (User u : chat.getUsers()) {
+                if(u.equals(user)) return chat;
+            }
+        }
+        return null;
+    }
+
+    public void deleteChat(User user){
+        Chat chatToDelete = getSpecificChat(user);
+        if(chatToDelete != null){
+            this.chats.remove(chatToDelete);
+            System.out.println(this.getName() + " deletou conversa com " +  user.getName());
+        }
+        else{
+            System.out.println("Não há como deletar o chat entre " + this.getName() + " e " + user.getName() + " pois não existe");
+        }
+    }
+
+    public void leaveGroup(Group group){
+        for (Group g : this.getGroups()) {
+            if(g.equals(group)){
+                this.getGroups().remove(group);
+                System.out.println(this.getName() + " saiu do grupo " +  group.getGroupName());
+                return;
+            } 
+        }
+        System.out.println("Não é possível sair do grupo " + group.getGroupName() +", pois suário não faz parte");
+    }
+
+    public void archiveChat(User user){
+        Chat chatToArchive = getSpecificChat(user);
+        if(chatToArchive != null){
+            this.archivedChats.add(chatToArchive);
+            this.chats.remove(chatToArchive);
+            System.out.println(this.getName() + " arquivou a conversa com " +  user.getName());
+        }
+        else{
+            System.out.println("Não há como arquivar o chat entre " + this.getName() + " e " + user.getName() + " pois não existe");
+        }
+    }
+
+    public void recoverArchivedChat(User user){
+        Chat chat = getSpecificArchivedChat(user);
+        if(chat != null){
+            this.chats.add(chat);
+            this.archivedChats.remove(chat);
+            System.out.println(this.getName() + " desarquivou a conversa com " +  user.getName());
+        }
+        else{
+            System.out.println("Não há como desarquivar o chat entre " + this.getName() + " e " + user.getName() + " pois não existe");
+        }
+    }
+
+    public Chat getSpecificArchivedChat(User user){
+        for (Chat chat : archivedChats) {
+            for (User u : chat.getUsers()) {
+                if(u.equals(user)) return chat;
+            }
+        }
+        return null;
+    }
+
 }
