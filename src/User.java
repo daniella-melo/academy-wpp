@@ -24,23 +24,19 @@ public class User implements Comparable<User>{
         this.groups.add(group);
     }
 
-    public void addArchivedChat(Chat chat){
-        this.archivedChats.add(chat);
-    }
-
     public void sendMessageToSingleUser(User to, String content, MessageEnum type){
         Message message = new Message(content, to, this, type);
         this.registerMessageToSingleUser(message, to);
         to.receiveMessage(this, content, type);
     }
 
-    public void receiveMessage(User from, String content, MessageEnum type){
+    private void receiveMessage(User from, String content, MessageEnum type){
         Message message = new Message(content, this, from, type);
 
         this.registerMessageToSingleUser(message, from);
     }
 
-    public void registerMessageToSingleUser(Message message, User foreign){
+    private void registerMessageToSingleUser(Message message, User foreign){
         ArrayList<User> listUsers = new ArrayList<>();
         listUsers.add(this);
         listUsers.add(foreign);
@@ -98,11 +94,11 @@ public class User implements Comparable<User>{
     }
 
     public void listAllChatsAndGroups(){
-        System.out.println("\nChats que o usuário " + this.getName() + " participa:" );
+        System.out.println("\nChats que " + this.getName() + " participa:" );
         for (Chat chat : chats) {
             System.out.println("Chat com: " + getOtherUser(chat).getName());
         }
-        System.out.println("\nGrupos que o usuário " + this.getName() + " participa:" );
+        System.out.println("\nGrupos que " + this.getName() + " participa:" );
         for (Group group : groups) {
             System.out.println("Nome do grupo: " + group.getGroupName());
         }
@@ -139,11 +135,11 @@ public class User implements Comparable<User>{
         for (Group g : this.getGroups()) {
             if(g.equals(group)){
                 this.getGroups().remove(group);
-                System.out.println(this.getName() + " saiu do grupo " +  group.getGroupName());
+                System.out.println("\n"+ this.getName() + " saiu do grupo " +  group.getGroupName());
                 return;
             } 
         }
-        System.out.println("Não é possível sair do grupo " + group.getGroupName() +", pois suário não faz parte");
+        System.out.println("\n Usuário "+ this.getName() + " não faz parte do grupo " + group.getGroupName() );
     }
 
     public void archiveChat(User user){

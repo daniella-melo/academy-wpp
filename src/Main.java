@@ -58,11 +58,23 @@ public class Main{
              System.out.println(user.getName());
         }
 
-        System.out.println("\n Número de Participantes deste chat: " + espiasDemais.totalNumberOfParticipants());
+        System.out.println("Número de Participantes: " + espiasDemais.totalNumberOfParticipants());
 
-
+        System.out.println("\n--Lista de Administradores deste Grupo:--");
+        for (User user :  espiasDemais.getAdmUsers()) {
+             System.out.println(user.getName());
+        }
+ 
         //Extras
         daniella.listAllChatsAndGroups();
+        
+        kayla.listAllChatsAndGroups();
+        kayla.leaveGroup(espiasDemais);
 
+        kayla.listAllChatsAndGroups();
+    
+        kayla.sendMessageToSingleUser(daniella, "Oi Dani", MessageEnum.TEXT);
+        kayla.listAllChatsAndGroups();
+        daniella.listAllChatsAndGroups();
     }
 }

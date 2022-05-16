@@ -25,7 +25,7 @@ public class Chat {
     public int existsBetween(ArrayList<User> listUsers){
         int validUsers = 0;
         for (User user : listUsers) {
-            if (userExists(user, listUsers)) validUsers++;
+            if (userExists(user, this.getUsers())) validUsers++;
         }
         return validUsers;
     }

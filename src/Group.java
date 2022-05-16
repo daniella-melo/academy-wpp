@@ -55,7 +55,7 @@ public class Group extends Chat{
         }
     }
 
-    public boolean isAdm(User user){
+    private boolean isAdm(User user){
         for (User u : admUsers) {
             if (u.getName() == user.getName()) return true;
         }
